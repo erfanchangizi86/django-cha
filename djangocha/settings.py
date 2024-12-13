@@ -31,13 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'panel_sms'
+    'panel_sms',
+  
 ]
 
 MIDDLEWARE = [
@@ -69,7 +71,18 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'djangocha.wsgi.application'
+# WSGI_APPLICATION = 'djangocha.wsgi.application'
+
+# channels
+ASGI_APPLICATION = "djangocha.routing.application"
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [("localhost", 6379)],
+#         },
+#     },
+# }
 
 
 # Database
