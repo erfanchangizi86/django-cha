@@ -6,4 +6,5 @@ class MyConsumer(WebSocketConsumer):
     def disconnect(self,close_code):
         return
     def receive(self, text_data):
+        print(text_data)
         self.send(text_data=text_data)
