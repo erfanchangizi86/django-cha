@@ -7,4 +7,4 @@ class MyConsumer(WebSocketConsumer):
         return
     def receive(self, text_data):
         print(text_data)
-        self.send(text_data=text_data)
+        self.send(text_data=text_data+'- hello world')

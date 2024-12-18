@@ -1,5 +1,5 @@
 from django.urls import path
-from . import consumers
+from .consumers import MyConsumer
 websocket_urlpatterns = [
-    path('ws/', consumers.MyConsumer),  # Replace with your consumer class name
+    path('ws/',MyConsumer),  # Replace with your consumer class name
 ]
