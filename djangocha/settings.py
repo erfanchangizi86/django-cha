@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'panel_sms',
-  
+    'chat'
 ]
 
 MIDDLEWARE = [
@@ -74,7 +74,7 @@ TEMPLATES = [
 # WSGI_APPLICATION = 'djangocha.wsgi.application'
 
 # channels
-ASGI_APPLICATION = "djangocha.routing.application"
+ASGI_APPLICATION = "djangocha.asgi.application"
 # CHANNEL_LAYERS = {
 #     "default": {
 #         "BACKEND": "channels_redis.core.RedisChannelLayer",
