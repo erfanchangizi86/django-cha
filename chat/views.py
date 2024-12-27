@@ -6,8 +6,9 @@ def index(request):
 
 
 def RoomName(request:HttpRequest,room_name):
-    print(request.method)
+    print(request)
     context = {
         'room_name':room_name
     }
     return render(request,'page/chat/room.html',context)
+    
