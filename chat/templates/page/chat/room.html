@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block style %}
 <style>
     body {
@@ -81,6 +82,8 @@
     </div>
 </div>
 {{ room_name|json_script:"room-name" }}
+
+
 <script>
     const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
@@ -117,6 +120,7 @@
         messageInputDom.value = '';
     };
 </script>
+
 {% endblock body %}
 
 
