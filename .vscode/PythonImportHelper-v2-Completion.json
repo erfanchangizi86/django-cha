@@ -1,5 +1,54 @@
 [
     {
+        "label": "django.db.models.deletion",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db.models.deletion",
+        "description": "django.db.models.deletion",
+        "detail": "django.db.models.deletion",
+        "documentation": {}
+    },
+    {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "admin",
         "importPath": "django.contrib",
         "description": "django.contrib",
@@ -48,6 +97,14 @@
         "documentation": {}
     },
     {
+        "label": "WebsocketConsumer",
+        "importPath": "channels.generic.websocket",
+        "description": "channels.generic.websocket",
+        "isExtraImport": true,
+        "detail": "channels.generic.websocket",
+        "documentation": {}
+    },
+    {
         "label": "WebSocketConsumer",
         "importPath": "channels.generic.websocket",
         "description": "channels.generic.websocket",
@@ -65,19 +122,19 @@
         "documentation": {}
     },
     {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
+        "label": "async_to_sync",
+        "importPath": "asgiref.sync ",
+        "description": "asgiref.sync ",
         "isExtraImport": true,
-        "detail": "django.db",
+        "detail": "asgiref.sync ",
         "documentation": {}
     },
     {
-        "label": "models",
-        "importPath": "django.db",
-        "description": "django.db",
+        "label": "get_user_model",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
         "isExtraImport": true,
-        "detail": "django.db",
+        "detail": "django.contrib.auth",
         "documentation": {}
     },
     {
@@ -260,6 +317,15 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "chat.migrations.0001_initial",
+        "description": "chat.migrations.0001_initial",
+        "peekOfCode": "class Migration(migrations.Migration):\n    initial = True\n    dependencies = [\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Message',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),",
+        "detail": "chat.migrations.0001_initial",
+        "documentation": {}
+    },
+    {
         "label": "ChatConfig",
         "kind": 6,
         "importPath": "chat.apps",
@@ -273,8 +339,26 @@
         "kind": 6,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "class ChatConsumer(AsyncWebsocketConsumer):\n    async def connect(self):\n        self.room_name = self.scope['url_route']['kwargs']['room_name']\n        self.room_group_name = f'chat_{self.room_name}'\n        await self.channel_layer.group_add(\n            self.room_group_name,\n            self.channel_name\n        )\n        await self.accept()\n    async def disconnect(self, close_code):",
+        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self,data):\n        print('hello')\n    def fetch_message(self):\n        pass\n    def connect(self):\n        self.room_name = self.scope['url_route']['kwargs']['room_name']\n        self.room_group_name = f'chat_{self.room_name}'\n        async_to_sync(self.channel_layer.group_add)(\n            self.room_group_name,",
         "detail": "chat.consumers",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "kind": 6,
+        "importPath": "chat.models",
+        "description": "chat.models",
+        "peekOfCode": "class Message(models.Model):\n    author = models.ForeignKey(user,verbose_name='نویسنده',on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ')",
+        "detail": "chat.models",
+        "documentation": {}
+    },
+    {
+        "label": "user",
+        "kind": 5,
+        "importPath": "chat.models",
+        "description": "chat.models",
+        "peekOfCode": "user = get_user_model()\nclass Message(models.Model):\n    author = models.ForeignKey(user,verbose_name='نویسنده',on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ')",
+        "detail": "chat.models",
         "documentation": {}
     },
     {
@@ -435,7 +519,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),  # مسیر پوشه فایل‌های استاتیک پروژه\n]",
+        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\n# STATIC_URL = '/static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -444,7 +528,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),  # مسیر پوشه فایل‌های استاتیک پروژه\n]\n# Default primary key field type",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\n# STATIC_URL = '/static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_URL = '/static/'",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -453,7 +537,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),  # مسیر پوشه فایل‌های استاتیک پروژه\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\n# STATIC_URL = '/static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_URL = '/static/'\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -462,16 +546,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),  # مسیر پوشه فایل‌های استاتیک پروژه\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
-        "detail": "djangocha.settings",
-        "documentation": {}
-    },
-    {
-        "label": "STATIC_URL",
-        "kind": 5,
-        "importPath": "djangocha.settings",
-        "description": "djangocha.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),  # مسیر پوشه فایل‌های استاتیک پروژه\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\n# STATIC_URL = '/static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_URL = '/static/'\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -480,7 +555,16 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "STATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),  # مسیر پوشه فایل‌های استاتیک پروژه\n]\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "STATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_URL = '/static/'\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "detail": "djangocha.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_URL",
+        "kind": 5,
+        "importPath": "djangocha.settings",
+        "description": "djangocha.settings",
+        "peekOfCode": "STATIC_URL = '/static/'\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
         "detail": "djangocha.settings",
         "documentation": {}
     },

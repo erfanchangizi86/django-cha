@@ -83,7 +83,7 @@
 </div>
 {{ room_name|json_script:"room-name" }}
 
-
+<script src="{% static "reconnecting-websocket.js" %}"></script>
 <script>
     const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
@@ -115,7 +115,8 @@
         const messageInputDom = document.querySelector('#chat-message-input');
         const message = messageInputDom.value;
         chatSocket.send(JSON.stringify({
-            'message': message
+            'message': message,
+            'command':'new_message'
         }));
         messageInputDom.value = '';
     };
