@@ -17,6 +17,15 @@
         "documentation": {}
     },
     {
+        "label": "django.db",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db",
+        "description": "django.db",
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -89,11 +98,29 @@
         "documentation": {}
     },
     {
-        "label": "AsyncWebsocketConsumer",
-        "importPath": "channels.generic.websocket",
-        "description": "channels.generic.websocket",
+        "label": "os",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "channels.generic.websocket",
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "django",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django",
+        "description": "django",
+        "detail": "django",
+        "documentation": {}
+    },
+    {
+        "label": "views",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
         "documentation": {}
     },
     {
@@ -123,10 +150,34 @@
     },
     {
         "label": "async_to_sync",
-        "importPath": "asgiref.sync ",
-        "description": "asgiref.sync ",
+        "importPath": "asgiref.sync",
+        "description": "asgiref.sync",
         "isExtraImport": true,
-        "detail": "asgiref.sync ",
+        "detail": "asgiref.sync",
+        "documentation": {}
+    },
+    {
+        "label": "MessageSerializers",
+        "importPath": "chat.serializers",
+        "description": "chat.serializers",
+        "isExtraImport": true,
+        "detail": "chat.serializers",
+        "documentation": {}
+    },
+    {
+        "label": "Message",
+        "importPath": "chat.models",
+        "description": "chat.models",
+        "isExtraImport": true,
+        "detail": "chat.models",
+        "documentation": {}
+    },
+    {
+        "label": "JSONRenderer",
+        "importPath": "rest_framework.renderers",
+        "description": "rest_framework.renderers",
+        "isExtraImport": true,
+        "detail": "rest_framework.renderers",
         "documentation": {}
     },
     {
@@ -186,6 +237,22 @@
         "documentation": {}
     },
     {
+        "label": "consumers",
+        "importPath": "chat",
+        "description": "chat",
+        "isExtraImport": true,
+        "detail": "chat",
+        "documentation": {}
+    },
+    {
+        "label": "serializers",
+        "importPath": "rest_framework",
+        "description": "rest_framework",
+        "isExtraImport": true,
+        "detail": "rest_framework",
+        "documentation": {}
+    },
+    {
         "label": "TestCase",
         "importPath": "django.test",
         "description": "django.test",
@@ -226,15 +293,6 @@
         "documentation": {}
     },
     {
-        "label": "os",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
-        "documentation": {}
-    },
-    {
         "label": "AuthMiddlewareStack",
         "importPath": "channels.auth",
         "description": "channels.auth",
@@ -256,14 +314,6 @@
         "description": "channels.routing",
         "isExtraImport": true,
         "detail": "channels.routing",
-        "documentation": {}
-    },
-    {
-        "label": "AllowedHostsOriginValidator",
-        "importPath": "channels.security.websocket",
-        "description": "channels.security.websocket",
-        "isExtraImport": true,
-        "detail": "channels.security.websocket",
         "documentation": {}
     },
     {
@@ -300,14 +350,6 @@
         "documentation": {}
     },
     {
-        "label": "views",
-        "importPath": "django",
-        "description": "django",
-        "isExtraImport": true,
-        "detail": "django",
-        "documentation": {}
-    },
-    {
         "label": "sys",
         "kind": 6,
         "isExtraImport": true,
@@ -339,7 +381,7 @@
         "kind": 6,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self,data):\n        print('hello')\n    def fetch_message(self):\n        pass\n    def connect(self):\n        self.room_name = self.scope['url_route']['kwargs']['room_name']\n        self.room_group_name = f'chat_{self.room_name}'\n        async_to_sync(self.channel_layer.group_add)(\n            self.room_group_name,",
+        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self,data):\n        print('hello')\n    def fetch_message(self,data):\n        qs = Message.last_message(self)\n        message_json = self.message_serializer(qs)\n        content =  {\n            'message':eval(message_json)\n        }\n        self.chat_message(content)",
         "detail": "chat.consumers",
         "documentation": {}
     },
@@ -348,7 +390,7 @@
         "kind": 6,
         "importPath": "chat.models",
         "description": "chat.models",
-        "peekOfCode": "class Message(models.Model):\n    author = models.ForeignKey(user,verbose_name='نویسنده',on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ')",
+        "peekOfCode": "class Message(models.Model):\n    author = models.ForeignKey(user,verbose_name='نویسنده',on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ')\n    def last_message(self):\n        return Message.objects.all().order_by('-time')\n    def __str__(self):\n        return self.author.username",
         "detail": "chat.models",
         "documentation": {}
     },
@@ -357,7 +399,7 @@
         "kind": 5,
         "importPath": "chat.models",
         "description": "chat.models",
-        "peekOfCode": "user = get_user_model()\nclass Message(models.Model):\n    author = models.ForeignKey(user,verbose_name='نویسنده',on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ')",
+        "peekOfCode": "user = get_user_model()\nclass Message(models.Model):\n    author = models.ForeignKey(user,verbose_name='نویسنده',on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ')\n    def last_message(self):\n        return Message.objects.all().order_by('-time')\n    def __str__(self):\n        return self.author.username",
         "detail": "chat.models",
         "documentation": {}
     },
@@ -368,6 +410,15 @@
         "description": "chat.routing",
         "peekOfCode": "websocket_urlpatterns = [\n    re_path(r\"ws/chat/(?P<room_name>\\w+)/$\", consumers.ChatConsumer.as_asgi()),\n]",
         "detail": "chat.routing",
+        "documentation": {}
+    },
+    {
+        "label": "MessageSerializers",
+        "kind": 6,
+        "importPath": "chat.serializers",
+        "description": "chat.serializers",
+        "peekOfCode": "class MessageSerializers(serializers.ModelSerializer):\n    class Meta:\n        model = Message\n        fields = ['__str__','text','time']",
+        "detail": "chat.serializers",
         "documentation": {}
     },
     {
@@ -402,7 +453,7 @@
         "kind": 5,
         "importPath": "djangocha.asgi",
         "description": "djangocha.asgi",
-        "peekOfCode": "application = ProtocolTypeRouter({\n        'http':get_asgi_application(),\n        'websocket': AuthMiddlewareStack(\n            URLRouter(chat.routing.websocket_urlpatterns)\n        ),\n})",
+        "peekOfCode": "application = ProtocolTypeRouter({\n    \"http\": get_asgi_application(),\n    \"websocket\": AuthMiddlewareStack(\n        URLRouter(chat.routing.websocket_urlpatterns)\n    ),\n})",
         "detail": "djangocha.asgi",
         "documentation": {}
     },
@@ -447,7 +498,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'panel_sms',\n    'chat'",
+        "peekOfCode": "INSTALLED_APPS = [\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'panel_sms',\n    'rest_framework',",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -582,7 +633,7 @@
         "kind": 5,
         "importPath": "djangocha.urls",
         "description": "djangocha.urls",
-        "peekOfCode": "urlpatterns = [\n    path('admin/', admin.site.urls),\n    path('home/', include('panel_sms.urls')),\n    path('chat/', include('chat.urls')),\n    # path('home/', include('home.urls')),\n    # path('products/', include('products.urls')),\n    # path('orders/', include('orders.urls')),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('api-auth/', include('rest_framework.urls')),\n    path('admin/', admin.site.urls),\n    path('home/', include('panel_sms.urls')),\n    path('chat/', include('chat.urls')),\n    # path('home/', include('home.urls')),\n    # path('products/', include('products.urls')),\n    # path('orders/', include('orders.urls')),\n]",
         "detail": "djangocha.urls",
         "documentation": {}
     },

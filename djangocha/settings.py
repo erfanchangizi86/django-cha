@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'panel_sms',
-    'chat'
+    'rest_framework',
+    'chat',
+
 ]
 
 MIDDLEWARE = [
