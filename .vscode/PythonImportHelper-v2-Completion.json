@@ -396,7 +396,7 @@
         "kind": 6,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n    def fetch_message(self, data):\n        qs = Message.last_message()\n        message_json = self.message_serializer(qs)\n        content = {",
+        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n        result = self.message_serializer([mess])\n        result = eval(result)\n        print(result)\n        self.send_to_message(result)",
         "detail": "chat.consumers",
         "documentation": {}
     },
@@ -405,7 +405,7 @@
         "kind": 5,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n    def fetch_message(self, data):\n        qs = Message.last_message()\n        message_json = self.message_serializer(qs)",
+        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n        result = self.message_serializer([mess])\n        result = eval(result)\n        print(result)",
         "detail": "chat.consumers",
         "documentation": {}
     },

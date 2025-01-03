@@ -24,6 +24,11 @@ class ChatConsumer(WebsocketConsumer):
         username = data['username']
         us = user.objects.filter(username=username).first()
         mess:Message = Message.objects.create(author=us,text=message)
+        result = self.message_serializer([mess])
+        result = eval(result)
+        print(result)
+        self.send_to_message(result)
+    
     def fetch_message(self, data):
         qs = Message.last_message()
         message_json = self.message_serializer(qs)
@@ -33,7 +38,7 @@ class ChatConsumer(WebsocketConsumer):
         self.chat_message(content)
 
     def message_serializer(self, qs):
-        serializersd = MessageSerializers(qs, many=True)
+        serializersd = MessageSerializers(qs, many=(lambda qs:True if (qs.__class__.__name__ == 'QuerySet') else False))
         content = JSONRenderer().render(serializersd.data)
         return content
 
@@ -78,7 +83,6 @@ class ChatConsumer(WebsocketConsumer):
 
     def chat_message(self, event):
         message = event['message']
-        print(event)
         self.send(text_data=json.dumps({
             'message': message
-        }))
+                            }))
