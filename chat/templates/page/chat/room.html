@@ -87,6 +87,8 @@
 <script>
     const roomName = JSON.parse(document.getElementById('room-name').textContent);
 
+    var username = {{ user_name }} ;
+
     const chatSocket = new WebSocket(
         'ws://'
         + window.location.host
@@ -122,6 +124,7 @@
         chatSocket.send(JSON.stringify({
             'message': message,
             'command':'new_message'
+            ,'username':username
         }));
         messageInputDom.value = '';
     };

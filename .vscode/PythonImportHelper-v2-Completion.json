@@ -17,15 +17,6 @@
         "documentation": {}
     },
     {
-        "label": "django.db",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "django.db",
-        "description": "django.db",
-        "detail": "django.db",
-        "documentation": {}
-    },
-    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -124,6 +115,14 @@
         "documentation": {}
     },
     {
+        "label": "Response",
+        "importPath": "rest_framework.response",
+        "description": "rest_framework.response",
+        "isExtraImport": true,
+        "detail": "rest_framework.response",
+        "documentation": {}
+    },
+    {
         "label": "WebsocketConsumer",
         "importPath": "channels.generic.websocket",
         "description": "channels.generic.websocket",
@@ -178,6 +177,14 @@
         "description": "rest_framework.renderers",
         "isExtraImport": true,
         "detail": "rest_framework.renderers",
+        "documentation": {}
+    },
+    {
+        "label": "get_user_model",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
         "documentation": {}
     },
     {
@@ -293,6 +300,14 @@
         "documentation": {}
     },
     {
+        "label": "mark_safe",
+        "importPath": "django.utils.safestring",
+        "description": "django.utils.safestring",
+        "isExtraImport": true,
+        "detail": "django.utils.safestring",
+        "documentation": {}
+    },
+    {
         "label": "AuthMiddlewareStack",
         "importPath": "channels.auth",
         "description": "channels.auth",
@@ -381,7 +396,16 @@
         "kind": 6,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self,data):\n        print('hello')\n    def fetch_message(self,data):\n        qs = Message.last_message(self)\n        message_json = self.message_serializer(qs)\n        content =  {\n            'message':eval(message_json)\n        }\n        self.chat_message(content)",
+        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n    def fetch_message(self, data):\n        qs = Message.last_message()\n        message_json = self.message_serializer(qs)\n        content = {",
+        "detail": "chat.consumers",
+        "documentation": {}
+    },
+    {
+        "label": "user",
+        "kind": 5,
+        "importPath": "chat.consumers",
+        "description": "chat.consumers",
+        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n    def fetch_message(self, data):\n        qs = Message.last_message()\n        message_json = self.message_serializer(qs)",
         "detail": "chat.consumers",
         "documentation": {}
     },
@@ -390,7 +414,7 @@
         "kind": 6,
         "importPath": "chat.models",
         "description": "chat.models",
-        "peekOfCode": "class Message(models.Model):\n    author = models.ForeignKey(user,verbose_name='نویسنده',on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ')\n    def last_message(self):\n        return Message.objects.all().order_by('-time')\n    def __str__(self):\n        return self.author.username",
+        "peekOfCode": "class Message(models.Model):\n    author = models.ForeignKey(user, verbose_name='نویسنده', on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')\n    @classmethod\n    def last_message(cls):\n        return cls.objects.all().order_by('-time')\n    def __str__(self):\n        return self.author.username",
         "detail": "chat.models",
         "documentation": {}
     },
@@ -399,7 +423,7 @@
         "kind": 5,
         "importPath": "chat.models",
         "description": "chat.models",
-        "peekOfCode": "user = get_user_model()\nclass Message(models.Model):\n    author = models.ForeignKey(user,verbose_name='نویسنده',on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True,verbose_name='تاریخ')\n    def last_message(self):\n        return Message.objects.all().order_by('-time')\n    def __str__(self):\n        return self.author.username",
+        "peekOfCode": "user = get_user_model()\nclass Message(models.Model):\n    author = models.ForeignKey(user, verbose_name='نویسنده', on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')\n    @classmethod\n    def last_message(cls):\n        return cls.objects.all().order_by('-time')\n    def __str__(self):\n        return self.author.username",
         "detail": "chat.models",
         "documentation": {}
     },
@@ -417,7 +441,7 @@
         "kind": 6,
         "importPath": "chat.serializers",
         "description": "chat.serializers",
-        "peekOfCode": "class MessageSerializers(serializers.ModelSerializer):\n    class Meta:\n        model = Message\n        fields = ['__str__','text','time']",
+        "peekOfCode": "class MessageSerializers(serializers.ModelSerializer):\n    class Meta:\n        model = Message\n        fields = ['__str__', 'text', 'time']",
         "detail": "chat.serializers",
         "documentation": {}
     },
@@ -435,7 +459,7 @@
         "kind": 2,
         "importPath": "chat.views",
         "description": "chat.views",
-        "peekOfCode": "def index(request):\n    return render(request,'page/chat/index.html')\ndef RoomName(request:HttpRequest,room_name):\n    print(request)\n    context = {\n        'room_name':room_name\n    }\n    return render(request,'page/chat/room.html',context)",
+        "peekOfCode": "def index(request):\n    return render(request,'page/chat/index.html')\ndef RoomName(request:HttpRequest,room_name):\n    user_name = request.user.username\n    context = {\n        'room_name': room_name,\n        'user_name': mark_safe(json.dumps(user_name))\n    }\n    return render(request,'page/chat/room.html',context)",
         "detail": "chat.views",
         "documentation": {}
     },
@@ -444,7 +468,7 @@
         "kind": 2,
         "importPath": "chat.views",
         "description": "chat.views",
-        "peekOfCode": "def RoomName(request:HttpRequest,room_name):\n    print(request)\n    context = {\n        'room_name':room_name\n    }\n    return render(request,'page/chat/room.html',context)",
+        "peekOfCode": "def RoomName(request:HttpRequest,room_name):\n    user_name = request.user.username\n    context = {\n        'room_name': room_name,\n        'user_name': mark_safe(json.dumps(user_name))\n    }\n    return render(request,'page/chat/room.html',context)",
         "detail": "chat.views",
         "documentation": {}
     },
