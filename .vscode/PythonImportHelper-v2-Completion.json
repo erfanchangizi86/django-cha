@@ -17,6 +17,14 @@
         "documentation": {}
     },
     {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -357,6 +365,14 @@
         "documentation": {}
     },
     {
+        "label": "static",
+        "importPath": "django.conf.urls.static",
+        "description": "django.conf.urls.static",
+        "isExtraImport": true,
+        "detail": "django.conf.urls.static",
+        "documentation": {}
+    },
+    {
         "label": "get_wsgi_application",
         "importPath": "django.core.wsgi",
         "description": "django.core.wsgi",
@@ -396,7 +412,7 @@
         "kind": 6,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n        result = self.message_serializer([mess])\n        result = eval(result)\n        print(result)\n        self.send_to_message(result)",
+        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n        result = self.message_serializer([mess])\n        result = eval(result)\n        self.send_to_message(result)\n    def fetch_message(self, data):",
         "detail": "chat.consumers",
         "documentation": {}
     },
@@ -405,7 +421,7 @@
         "kind": 5,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n        result = self.message_serializer([mess])\n        result = eval(result)\n        print(result)",
+        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n        result = self.message_serializer([mess])\n        result = eval(result)\n        self.send_to_message(result)",
         "detail": "chat.consumers",
         "documentation": {}
     },
@@ -594,7 +610,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\n# STATIC_URL = '/static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]",
+        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -603,7 +619,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\n# STATIC_URL = '/static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_URL = '/static/'",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -612,7 +628,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\n# STATIC_URL = '/static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_URL = '/static/'\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -621,16 +637,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\n# STATIC_URL = '/static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_URL = '/static/'\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type",
-        "detail": "djangocha.settings",
-        "documentation": {}
-    },
-    {
-        "label": "STATICFILES_DIRS",
-        "kind": 5,
-        "importPath": "djangocha.settings",
-        "description": "djangocha.settings",
-        "peekOfCode": "STATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_URL = '/static/'\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -639,7 +646,25 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "STATIC_URL = '/static/'\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "STATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "detail": "djangocha.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATICFILES_DIRS",
+        "kind": 5,
+        "importPath": "djangocha.settings",
+        "description": "djangocha.settings",
+        "peekOfCode": "STATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "detail": "djangocha.settings",
+        "documentation": {}
+    },
+    {
+        "label": "STATIC_ROOT",
+        "kind": 5,
+        "importPath": "djangocha.settings",
+        "description": "djangocha.settings",
+        "peekOfCode": "STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -657,7 +682,7 @@
         "kind": 5,
         "importPath": "djangocha.urls",
         "description": "djangocha.urls",
-        "peekOfCode": "urlpatterns = [\n    path('api-auth/', include('rest_framework.urls')),\n    path('admin/', admin.site.urls),\n    path('home/', include('panel_sms.urls')),\n    path('chat/', include('chat.urls')),\n    # path('home/', include('home.urls')),\n    # path('products/', include('products.urls')),\n    # path('orders/', include('orders.urls')),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('api-auth/', include('rest_framework.urls')),\n    path('admin/', admin.site.urls),\n    path('home/', include('panel_sms.urls')),\n    path('chat/', include('chat.urls')),\n    # path('home/', include('home.urls')),\n    # path('products/', include('products.urls')),\n    # path('orders/', include('orders.urls')),\n]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)",
         "detail": "djangocha.urls",
         "documentation": {}
     },

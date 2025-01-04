@@ -26,7 +26,6 @@ class ChatConsumer(WebsocketConsumer):
         mess:Message = Message.objects.create(author=us,text=message)
         result = self.message_serializer([mess])
         result = eval(result)
-        print(result)
         self.send_to_message(result)
     
     def fetch_message(self, data):
