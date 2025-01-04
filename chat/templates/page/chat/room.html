@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #000000; /* سیاه کردن پس‌زمینه */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .chat-container {
+        width: 60%;
+        max-width: 800px;
+        min-width: 300px;
+        background: #222222; /* پس‌زمینه چت */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .message-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    float: left; /* قرار گرفتن سمت چپ */
+    margin-left: 10px; /* فاصله از محتوای بعدی */
+}
+
+
+    /* استایل برای هدر که شامل عکس پروفایل و نام کاربر می‌شود */
+    .user-profile {
+        background: #1c1c1c;
+        color: white;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 2px solid #444;
+    }
+
+    .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .user-profile span {
+        font-size: 16px;
+        color: white;
+    }
+
+    #chat-log {
+        flex: 1;
+        padding: 15px;
+        font-size: 16px;
+        line-height: 1.5;
+        overflow-y: auto;
+        max-height: 400px;
+        background-color: #333; /* پس‌زمینه پیام‌ها */
+        color: white;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chat-message {
+        margin: 10px 0;
+        display: flex;
+        align-items: flex-end;
+        gap: 10px;
+    }
+
+    .chat-message.user {
+        justify-content: flex-end;
+    }
+
+    .chat-message .message-content {
+        max-width: 75%;
+        padding: 10px;
+        border-radius: 10px;
+        word-wrap: break-word;
+    }
+
+    .chat-message.user .message-content {
+        background-color: #007bff;
+        color: white;
+        border-bottom-right-radius: 0;
+    }
+
+    .chat-message.other .message-content {
+        background-color: #e5e5ea;
+        color: black;
+        border-bottom-left-radius: 0;
+    }
+
+    .chat-input-container {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background: #444444;
+    }
+
+    #chat-message-input {
+        flex: 1;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px;
+        outline: none;
+        margin-right: 10px;
+    }
+
+    #chat-message-submit {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    #chat-message-submit:hover {
+        background-color: #0056b3;
+    }
+</style>
+{% endblock style %}
+
+{% block body %}
+<div class="chat-container">
+    <div class="user-profile">
+        <img src="{% static 'images.jpeg' %}" alt="User Profile">
+        <span>{{ user_name }}</span>
+    </div>
+
+    <div id="chat-log"></div>
+    <div class="chat-input-container">
+        <input id="chat-message-input" type="text" placeholder="Type your message...">
+        <input id="chat-message-submit" type="button" value="Send">
+    </div>
+</div>
+{{ room_name|json_script:"room-name" }}
+
+<script src="{% static 'reconnecting-websocket.js' %}"></script>
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    var username = {{ user_name }};
+    var userProfileUrl = "{% static 'images.jpeg' %}"; // تصویر پیش‌فرض
+
+    const chatSocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + roomName
+        + '/'
+    );
+
+    chatSocket.onopen = function(e) {
+        chatSocket.send(JSON.stringify({
+            'command': 'fetch_message'
+        }));
+    };
+
+    chatSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        const chatLog = document.querySelector('#chat-log');
+
+        data['message'].forEach(msg => {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message');
+
+
+            const messageContent = document.createElement('div');
+            messageContent.classList.add('message-content');
+            messageContent.textContent = msg['text'];
+
+
+
+            const profileImg = document.createElement('img');
+            profileImg.src = msg['profile_image_url'] || userProfileUrl; // استفاده از تصویر پیش‌فرض
+            profileImg.classList.add('message-img')
+
+
+            if (msg['__str__'] === username) {
+                messageDiv.classList.add('user');
+            } else {
+                messageDiv.classList.add('other');
+            }
+
+            messageDiv.appendChild(profileImg);
+            messageDiv.appendChild(messageContent);
+            chatLog.appendChild(messageDiv);
+        });
+
+        chatLog.scrollTop = chatLog.scrollHeight; // اسکرول به آخرین پیام
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.key === 'Enter') {
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        const messageInputDom = document.querySelector('#chat-message-input');
+        const message = messageInputDom.value;
+
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'command': 'new_message',
+            'username': username,
+            'profile_image_url': userProfileUrl
+        }));
+
+        messageInputDom.value = '';
+    };
+</script>
+{% endblock body %}
