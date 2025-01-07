@@ -9,7 +9,7 @@ from channels.generic.websocket import WebsocketConsumer
 import json
 from asgiref.sync import async_to_sync
 from chat.serializers import MessageSerializers
-from chat.models import Message
+from chat.models import Message,Chat
 from rest_framework.renderers import JSONRenderer
 
 from django.contrib.auth import get_user_model
@@ -22,14 +22,18 @@ class ChatConsumer(WebsocketConsumer):
     def new_message(self, data):
         message = data['message']
         username = data['username']
+        room_name = data['roomname']
+        chat_ma =Chat.objects.get(roomname=room_name)
         us = user.objects.filter(username=username).first()
-        mess:Message = Message.objects.create(author=us,text=message)
+        mess:Message = Message.objects.create(author=us,text=message,related_chat=chat_ma)
         result = self.message_serializer([mess])
         result = eval(result)
+        print(result)
         self.send_to_message(result)
     
     def fetch_message(self, data):
-        qs = Message.last_message()
+        roomname = data['roomname']
+        qs = Message.last_message(room_name=roomname)
         message_json = self.message_serializer(qs)
         content = {
             'message': eval(message_json)  # توجه داشته باشید که استفاده از eval خطرناک است.

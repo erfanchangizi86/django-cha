@@ -25,6 +25,62 @@
         "documentation": {}
     },
     {
+        "label": "settings",
+        "importPath": "django.conf",
+        "description": "django.conf",
+        "isExtraImport": true,
+        "detail": "django.conf",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "migrations",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
+        "label": "models",
+        "importPath": "django.db",
+        "description": "django.db",
+        "isExtraImport": true,
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -180,6 +236,14 @@
         "documentation": {}
     },
     {
+        "label": "Chat",
+        "importPath": "chat.models",
+        "description": "chat.models",
+        "isExtraImport": true,
+        "detail": "chat.models",
+        "documentation": {}
+    },
+    {
         "label": "JSONRenderer",
         "importPath": "rest_framework.renderers",
         "description": "rest_framework.renderers",
@@ -197,6 +261,14 @@
     },
     {
         "label": "get_user_model",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "views",
         "importPath": "django.contrib.auth",
         "description": "django.contrib.auth",
         "isExtraImport": true,
@@ -284,6 +356,14 @@
         "documentation": {}
     },
     {
+        "label": "TEMPLATES",
+        "importPath": "djangocha.settings",
+        "description": "djangocha.settings",
+        "isExtraImport": true,
+        "detail": "djangocha.settings",
+        "documentation": {}
+    },
+    {
         "label": "render",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
@@ -313,6 +393,22 @@
         "description": "django.utils.safestring",
         "isExtraImport": true,
         "detail": "django.utils.safestring",
+        "documentation": {}
+    },
+    {
+        "label": "login_required",
+        "importPath": "django.contrib.auth.decorators",
+        "description": "django.contrib.auth.decorators",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.decorators",
+        "documentation": {}
+    },
+    {
+        "label": "user",
+        "importPath": "chat.consumers",
+        "description": "chat.consumers",
+        "isExtraImport": true,
+        "detail": "chat.consumers",
         "documentation": {}
     },
     {
@@ -399,6 +495,33 @@
         "documentation": {}
     },
     {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "chat.migrations.0002_chat",
+        "description": "chat.migrations.0002_chat",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('chat', '0001_initial'),\n        migrations.swappable_dependency(settings.AUTH_USER_MODEL),\n    ]\n    operations = [\n        migrations.CreateModel(\n            name='Chat',\n            fields=[\n                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),",
+        "detail": "chat.migrations.0002_chat",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "chat.migrations.0003_message_related_chat",
+        "description": "chat.migrations.0003_message_related_chat",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('chat', '0002_chat'),\n    ]\n    operations = [\n        migrations.AddField(\n            model_name='message',\n            name='related_chat',\n            field=models.ForeignKey(blank=True, default=1, on_delete=django.db.models.deletion.CASCADE, to='chat.chat'),\n            preserve_default=False,",
+        "detail": "chat.migrations.0003_message_related_chat",
+        "documentation": {}
+    },
+    {
+        "label": "Migration",
+        "kind": 6,
+        "importPath": "chat.migrations.0004_alter_message_related_chat",
+        "description": "chat.migrations.0004_alter_message_related_chat",
+        "peekOfCode": "class Migration(migrations.Migration):\n    dependencies = [\n        ('chat', '0003_message_related_chat'),\n    ]\n    operations = [\n        migrations.AlterField(\n            model_name='message',\n            name='related_chat',\n            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='chat.chat'),\n        ),",
+        "detail": "chat.migrations.0004_alter_message_related_chat",
+        "documentation": {}
+    },
+    {
         "label": "ChatConfig",
         "kind": 6,
         "importPath": "chat.apps",
@@ -412,7 +535,7 @@
         "kind": 6,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n        result = self.message_serializer([mess])\n        result = eval(result)\n        self.send_to_message(result)\n    def fetch_message(self, data):",
+        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        room_name = data['roomname']\n        chat_ma =Chat.objects.get(roomname=room_name)\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message,related_chat=chat_ma)\n        result = self.message_serializer([mess])\n        result = eval(result)",
         "detail": "chat.consumers",
         "documentation": {}
     },
@@ -421,8 +544,17 @@
         "kind": 5,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message)\n        result = self.message_serializer([mess])\n        result = eval(result)\n        self.send_to_message(result)",
+        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        room_name = data['roomname']\n        chat_ma =Chat.objects.get(roomname=room_name)\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message,related_chat=chat_ma)\n        result = self.message_serializer([mess])",
         "detail": "chat.consumers",
+        "documentation": {}
+    },
+    {
+        "label": "Chat",
+        "kind": 6,
+        "importPath": "chat.models",
+        "description": "chat.models",
+        "peekOfCode": "class Chat(models.Model):\n    roomname = models.CharField(blank=True,max_length=200)\n    members = models.ManyToManyField(user,null=True,blank=True)\n    def __str__(self):\n        return  self.roomname\nclass Message(models.Model):\n    author = models.ForeignKey(user, verbose_name='نویسنده', on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    related_chat = models.ForeignKey(Chat,on_delete=models.CASCADE,blank=True,null=True)\n    time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')",
+        "detail": "chat.models",
         "documentation": {}
     },
     {
@@ -430,7 +562,7 @@
         "kind": 6,
         "importPath": "chat.models",
         "description": "chat.models",
-        "peekOfCode": "class Message(models.Model):\n    author = models.ForeignKey(user, verbose_name='نویسنده', on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')\n    @classmethod\n    def last_message(cls):\n        return cls.objects.all().order_by('-time')\n    def __str__(self):\n        return self.author.username",
+        "peekOfCode": "class Message(models.Model):\n    author = models.ForeignKey(user, verbose_name='نویسنده', on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    related_chat = models.ForeignKey(Chat,on_delete=models.CASCADE,blank=True,null=True)\n    time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')\n    @classmethod\n    def last_message(cls,room_name):\n        return cls.objects.filter(related_chat__roomname = room_name).order_by('time')\n    def __str__(self):\n        return self.author.username",
         "detail": "chat.models",
         "documentation": {}
     },
@@ -439,7 +571,7 @@
         "kind": 5,
         "importPath": "chat.models",
         "description": "chat.models",
-        "peekOfCode": "user = get_user_model()\nclass Message(models.Model):\n    author = models.ForeignKey(user, verbose_name='نویسنده', on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    time = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')\n    @classmethod\n    def last_message(cls):\n        return cls.objects.all().order_by('-time')\n    def __str__(self):\n        return self.author.username",
+        "peekOfCode": "user = get_user_model()\nclass Chat(models.Model):\n    roomname = models.CharField(blank=True,max_length=200)\n    members = models.ManyToManyField(user,null=True,blank=True)\n    def __str__(self):\n        return  self.roomname\nclass Message(models.Model):\n    author = models.ForeignKey(user, verbose_name='نویسنده', on_delete=models.CASCADE)\n    text = models.TextField(verbose_name='متن')\n    related_chat = models.ForeignKey(Chat,on_delete=models.CASCADE,blank=True,null=True)",
         "detail": "chat.models",
         "documentation": {}
     },
@@ -466,7 +598,7 @@
         "kind": 5,
         "importPath": "chat.urls",
         "description": "chat.urls",
-        "peekOfCode": "urlpatterns = [\n    path('wsg/',views.index),\n    path('<str:room_name>/',views.RoomName, name='room'),\n]",
+        "peekOfCode": "urlpatterns = [\n    path('wsg/',index),\n    path('<str:room_name>/',RoomName, name='room'),\n    path('login',views.LoginView.as_view(template_name='page/chat/login.html'),name='login')\n    ]",
         "detail": "chat.urls",
         "documentation": {}
     },
@@ -475,7 +607,7 @@
         "kind": 2,
         "importPath": "chat.views",
         "description": "chat.views",
-        "peekOfCode": "def index(request):\n    return render(request,'page/chat/index.html')\ndef RoomName(request:HttpRequest,room_name):\n    user_name = request.user.username\n    context = {\n        'room_name': room_name,\n        'user_name': mark_safe(json.dumps(user_name))\n    }\n    return render(request,'page/chat/room.html',context)",
+        "peekOfCode": "def index(request):\n    user = request.user\n    group_list = Chat.objects.filter(members=user)\n    content = {\n        'group':group_list\n    }\n    return render(request,'page/chat/index.html',content)\n@login_required(login_url='login')\ndef RoomName(request:HttpRequest,room_name):\n    user = request.user",
         "detail": "chat.views",
         "documentation": {}
     },
@@ -484,7 +616,7 @@
         "kind": 2,
         "importPath": "chat.views",
         "description": "chat.views",
-        "peekOfCode": "def RoomName(request:HttpRequest,room_name):\n    user_name = request.user.username\n    context = {\n        'room_name': room_name,\n        'user_name': mark_safe(json.dumps(user_name))\n    }\n    return render(request,'page/chat/room.html',context)",
+        "peekOfCode": "def RoomName(request:HttpRequest,room_name):\n    user = request.user\n    try:\n        # تلاش برای پیدا کردن اتاق چت\n        chat_room = Chat.objects.get(roomname=room_name)\n    except Chat.DoesNotExist:\n        # اگر اتاق پیدا نشد، ایجاد آن\n        chat_room = Chat.objects.create(roomname=room_name)\n    # اضافه کردن کاربر به اعضای اتاق\n    chat_room.members.add(user)",
         "detail": "chat.views",
         "documentation": {}
     },

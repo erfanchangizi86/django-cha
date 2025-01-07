@@ -166,7 +166,8 @@
 
     chatSocket.onopen = function(e) {
         chatSocket.send(JSON.stringify({
-            'command': 'fetch_message'
+            'command': 'fetch_message',
+            'roomname':roomName
         }));
     };
 
@@ -222,7 +223,8 @@
             'message': message,
             'command': 'new_message',
             'username': username,
-            'profile_image_url': userProfileUrl
+            'profile_image_url': userProfileUrl,
+            'roomname':roomName
         }));
 
         messageInputDom.value = '';
