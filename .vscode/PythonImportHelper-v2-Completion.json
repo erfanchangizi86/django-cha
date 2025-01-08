@@ -530,6 +530,24 @@
         "documentation": {}
     },
     {
+        "label": "ChatAdmin",
+        "kind": 6,
+        "importPath": "chat.admin",
+        "description": "chat.admin",
+        "peekOfCode": "class ChatAdmin(admin.ModelAdmin):\n    list_display = ('roomname', 'get_members')  # نمایش نام اتاق و اعضا\n    search_fields = ('roomname',)  # قابلیت جستجو بر اساس نام اتاق\n    filter_horizontal = ('members',)  # اضافه کردن رابط گرافیکی برای مدیریت اعضا\n    def get_members(self, obj):\n        return \", \".join([member.username for member in obj.members.all()])  # نمایش اعضا به صورت لیست\n    get_members.short_description = 'اعضا'\n@admin.register(Message)\nclass MessageAdmin(admin.ModelAdmin):\n    list_display = ('author', 'related_chat', 'time', 'short_text')  # نمایش اطلاعات پیام",
+        "detail": "chat.admin",
+        "documentation": {}
+    },
+    {
+        "label": "MessageAdmin",
+        "kind": 6,
+        "importPath": "chat.admin",
+        "description": "chat.admin",
+        "peekOfCode": "class MessageAdmin(admin.ModelAdmin):\n    list_display = ('author', 'related_chat', 'time', 'short_text')  # نمایش اطلاعات پیام\n    search_fields = ('author__username', 'related_chat__roomname', 'text')  # جستجو بر اساس نویسنده، نام چت و متن پیام\n    list_filter = ('time', 'related_chat')  # فیلتر بر اساس زمان و چت مرتبط\n    list_editable = ('related_chat',)  # امکان ویرایش سریع چت مرتبط از لیست\n    def short_text(self, obj):\n        return obj.text[:50] + \"...\" if len(obj.text) > 50 else obj.text  # نمایش کوتاه شده متن پیام\n    short_text.short_description = 'متن کوتاه'\n    # قابلیت مرتب‌سازی پیش‌فرض\n    # ordering = (\"-published_date\",)",
+        "detail": "chat.admin",
+        "documentation": {}
+    },
+    {
         "label": "ChatConfig",
         "kind": 6,
         "importPath": "chat.apps",
@@ -687,7 +705,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "JAZZMIN_SETTINGS = {\n    \"site_title\": \"Library Admin\",\n    \"site_header\": \"Library\",\n    \"site_brand\": \"Library\",\n    \"site_logo\": \"books/img/logo.png\",\n    \"login_logo\": None,\n    \"login_logo_dark\": None,\n    \"site_logo_classes\": \"img-circle\",\n    \"site_icon\": None,\n    \"welcome_sign\": \"Welcome to the library\",",
+        "peekOfCode": "JAZZMIN_SETTINGS = {\n    # سایت و برند\n    \"site_title\": \"Library Admin\",\n    \"site_header\": \"Library Management\",\n    \"site_brand\": \"Library Admin\",\n    \"site_logo\": \"books/img/logo.png\",  # مسیر لوگوی دلخواه\n    \"site_logo_classes\": \"img-circle\",\n    \"site_icon\": \"books/img/favicon.ico\",  # آیکون مرورگر\n    \"welcome_sign\": \"Welcome to the Library Admin Panel\",\n    \"copyright\": \"© 2025 Library Inc\",",
         "detail": "djangocha.settings",
         "documentation": {}
     },
