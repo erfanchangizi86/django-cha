@@ -48,16 +48,17 @@ class ChatConsumer(WebsocketConsumer):
             list_username = list(chats.members.values_list('username', flat=True))  # تبدیل به لیست ساده
         else:
             list_username = []
-
         async_to_sync(self.channel_layer.group_send)(
-             'chat_listener',
-           {
-                'type': 'chat_message',
-                'message': data['message'],
-                '__str__':data['username'],
-                'roomname':mess_roomname,
-                'members':list_username,
-            }
+        'chat_listener',
+        {
+        'type': 'chat_message',
+        'message':{
+        'message': data['message'],  # ارسال پیام واقعی
+        '__str__': data['username'],  # ارسال نام کاربری
+        'roomname': data['roomname'],  # ارسال نام اتاق
+        'members': list_username,  # ارسال لیست اعضا
+        }
+     }  
         )
 
             
@@ -111,3 +112,5 @@ class ChatConsumer(WebsocketConsumer):
         self.send(text_data=json.dumps({
             'message': message
                             }))
+        
+
