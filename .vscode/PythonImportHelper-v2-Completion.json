@@ -535,7 +535,7 @@
         "kind": 6,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        room_name = data['roomname']\n        chat_ma =Chat.objects.get(roomname=room_name)\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message,related_chat=chat_ma)\n        result = self.message_serializer([mess])\n        result = eval(result)",
+        "peekOfCode": "class ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        room_name = data['roomname']\n        self.notif(data)\n        chat_ma =Chat.objects.get(roomname=room_name)\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message,related_chat=chat_ma)\n        result = self.message_serializer([mess])",
         "detail": "chat.consumers",
         "documentation": {}
     },
@@ -544,7 +544,7 @@
         "kind": 5,
         "importPath": "chat.consumers",
         "description": "chat.consumers",
-        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        room_name = data['roomname']\n        chat_ma =Chat.objects.get(roomname=room_name)\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message,related_chat=chat_ma)\n        result = self.message_serializer([mess])",
+        "peekOfCode": "user = get_user_model()\nclass ChatConsumer(WebsocketConsumer):\n    def new_message(self, data):\n        message = data['message']\n        username = data['username']\n        room_name = data['roomname']\n        self.notif(data)\n        chat_ma =Chat.objects.get(roomname=room_name)\n        us = user.objects.filter(username=username).first()\n        mess:Message = Message.objects.create(author=us,text=message,related_chat=chat_ma)",
         "detail": "chat.consumers",
         "documentation": {}
     },

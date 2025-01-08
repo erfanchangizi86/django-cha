@@ -156,7 +156,7 @@
     var username = {{ user_name }};
     var userProfileUrl = "{% static 'images.jpeg' %}"; // تصویر پیش‌فرض
 
-    const chatSocket = new WebSocket(
+    const chatSocket = new RecWebSocket(
         'ws://'
         + window.location.host
         + '/ws/chat/'
@@ -164,6 +164,52 @@
         + '/'
     );
 
+
+    const chatSocket2 = new WebSocket(
+        'ws://'
+        + window.location.host
+        + '/ws/chat/'
+        + 'listener'
+        + '/'
+    );
+
+    chatSocket2.onmessage = function(e){
+        var data = JSON.parse(e.data)
+        console.log(data['members'],data['__str__'],data['roomname'])
+
+        for (let index =data['members'].length-1; index>=0; index--) {
+            if (data['members'][index] == username) {
+                if (data['__str__'] != username) {
+                    if (data['roomname'] != roomName) {
+                        // چک می‌کنیم که آیا مرورگر از نوتیفیکیشن پشتیبانی می‌کند یا خیر
+                if (!("Notification" in window)) {
+                    alert("مرورگر شما از نوتیفیکیشن دسکتاپ پشتیبانی نمی‌کند.");
+                } else if (Notification.permission === "granted") {
+                    // اگر اجازه داده شده، نوتیفیکیشن را ارسال می‌کنیم
+                    new Notification("سلام!", {
+                        body: "این یک پیام نوتیفیکیشن تستی است!",
+                        icon: "your-icon-url.png" // مسیر آیکن دلخواه شما
+                    });
+                } else if (Notification.permission !== "denied") {
+                    // اگر اجازه هنوز داده نشده، درخواست اجازه می‌کنیم
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            new Notification("سلام!", {
+                                body: "این یک پیام نوتیفیکیشن تستی است!",
+                                icon: "your-icon-url.png"
+                            });
+                        }
+                    });
+                }
+
+                    }
+                    
+                }
+            }
+            
+        }
+    }
+    
     chatSocket.onopen = function(e) {
         chatSocket.send(JSON.stringify({
             'command': 'fetch_message',

@@ -23,6 +23,7 @@ class ChatConsumer(WebsocketConsumer):
         message = data['message']
         username = data['username']
         room_name = data['roomname']
+        self.notif(data)
         chat_ma =Chat.objects.get(roomname=room_name)
         us = user.objects.filter(username=username).first()
         mess:Message = Message.objects.create(author=us,text=message,related_chat=chat_ma)
@@ -40,6 +41,26 @@ class ChatConsumer(WebsocketConsumer):
         }
         self.chat_message(content)
 
+    def notif(self,data):
+        mess_roomname = data['roomname']
+        chats = Chat.objects.filter(roomname=mess_roomname).first()
+        if chats:
+            list_username = list(chats.members.values_list('username', flat=True))  # تبدیل به لیست ساده
+        else:
+            list_username = []
+
+        async_to_sync(self.channel_layer.group_send)(
+             'chat_listener',
+           {
+                'type': 'chat_message',
+                'message': data['message'],
+                '__str__':data['username'],
+                'roomname':mess_roomname,
+                'members':list_username,
+            }
+        )
+
+            
     def message_serializer(self, qs):
         serializersd = MessageSerializers(qs, many=(lambda qs:True if (qs.__class__.__name__ == 'QuerySet') else False))
         content = JSONRenderer().render(serializersd.data)
@@ -57,6 +78,7 @@ class ChatConsumer(WebsocketConsumer):
     commands = {
         'new_message': new_message,
         'fetch_message': fetch_message,
+        'notif':notif
     }
 
     def disconnect(self, close_code):
