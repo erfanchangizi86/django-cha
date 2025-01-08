@@ -469,6 +469,14 @@
         "documentation": {}
     },
     {
+        "label": "i18n_patterns",
+        "importPath": "django.conf.urls.i18n",
+        "description": "django.conf.urls.i18n",
+        "isExtraImport": true,
+        "detail": "django.conf.urls.i18n",
+        "documentation": {}
+    },
+    {
         "label": "get_wsgi_application",
         "importPath": "django.core.wsgi",
         "description": "django.core.wsgi",
@@ -643,7 +651,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "SECRET_KEY = 'django-insecure-4zn-k_z=#c28^g6!i=*w_!81_8v_s)l075-$it56l&&z%&)qm4'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',",
+        "peekOfCode": "SECRET_KEY = 'django-insecure-4zn-k_z=#c28^g6!i=*w_!81_8v_s)l075-$it56l&&z%&)qm4'\n# SECURITY WARNING: don't run with debug turned on in production!\nDEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'jazzmin',\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -652,7 +660,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',",
+        "peekOfCode": "DEBUG = True\nALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'jazzmin',\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -661,7 +669,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',",
+        "peekOfCode": "ALLOWED_HOSTS = []\n# Application definition\nINSTALLED_APPS = [\n    'jazzmin',\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -670,7 +678,16 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "INSTALLED_APPS = [\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'panel_sms',\n    'rest_framework',",
+        "peekOfCode": "INSTALLED_APPS = [\n    'jazzmin',\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'panel_sms',",
+        "detail": "djangocha.settings",
+        "documentation": {}
+    },
+    {
+        "label": "JAZZMIN_SETTINGS",
+        "kind": 5,
+        "importPath": "djangocha.settings",
+        "description": "djangocha.settings",
+        "peekOfCode": "JAZZMIN_SETTINGS = {\n    \"site_title\": \"Library Admin\",\n    \"site_header\": \"Library\",\n    \"site_brand\": \"Library\",\n    \"site_logo\": \"books/img/logo.png\",\n    \"login_logo\": None,\n    \"login_logo_dark\": None,\n    \"site_logo_classes\": \"img-circle\",\n    \"site_icon\": None,\n    \"welcome_sign\": \"Welcome to the library\",",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -679,7 +696,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]\nROOT_URLCONF = 'djangocha.urls'",
+        "peekOfCode": "MIDDLEWARE = [\n    'django.middleware.locale.LocaleMiddleware',\n    'django.middleware.security.SecurityMiddleware',\n    'django.contrib.sessions.middleware.SessionMiddleware',\n    'django.middleware.common.CommonMiddleware',\n    'django.middleware.csrf.CsrfViewMiddleware',\n    'django.contrib.auth.middleware.AuthenticationMiddleware',\n    'django.contrib.messages.middleware.MessageMiddleware',\n    'django.middleware.clickjacking.XFrameOptionsMiddleware',\n]",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -738,11 +755,20 @@
         "documentation": {}
     },
     {
+        "label": "LANGUAGES",
+        "kind": 5,
+        "importPath": "djangocha.settings",
+        "description": "djangocha.settings",
+        "peekOfCode": "LANGUAGES = [\n    ('en', ('English')),\n    ('fa', ('فارسی')),  # اضافه کردن زبان فارسی\n]\nLANGUAGE_CODE = 'en'  # زبان پیش‌فرض فارسی\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/",
+        "detail": "djangocha.settings",
+        "documentation": {}
+    },
+    {
         "label": "LANGUAGE_CODE",
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'en-us'\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]",
+        "peekOfCode": "LANGUAGE_CODE = 'en'  # زبان پیش‌فرض فارسی\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# STATICFILES_DIRS = [\n#     os.path.join(BASE_DIR, \"static\"),\n# ]",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -751,7 +777,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')",
+        "peekOfCode": "TIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# STATICFILES_DIRS = [\n#     os.path.join(BASE_DIR, \"static\"),\n# ]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'static')",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -760,7 +786,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')",
+        "peekOfCode": "USE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# STATICFILES_DIRS = [\n#     os.path.join(BASE_DIR, \"static\"),\n# ]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -769,7 +795,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type",
+        "peekOfCode": "USE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# STATICFILES_DIRS = [\n#     os.path.join(BASE_DIR, \"static\"),\n# ]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -778,16 +804,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "STATIC_URL = 'static/'\nSTATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
-        "detail": "djangocha.settings",
-        "documentation": {}
-    },
-    {
-        "label": "STATICFILES_DIRS",
-        "kind": 5,
-        "importPath": "djangocha.settings",
-        "description": "djangocha.settings",
-        "peekOfCode": "STATICFILES_DIRS = [\n    os.path.join(BASE_DIR, \"static\"),\n]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "STATIC_URL = 'static/'\n# STATICFILES_DIRS = [\n#     os.path.join(BASE_DIR, \"static\"),\n# ]\nSTATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -796,7 +813,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
+        "peekOfCode": "STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# STATIC_ROOT = os.path.join(BASE_DIR, 'static')\n# Default primary key field type\n# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field\nDEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -814,7 +831,7 @@
         "kind": 5,
         "importPath": "djangocha.urls",
         "description": "djangocha.urls",
-        "peekOfCode": "urlpatterns = [\n    path('api-auth/', include('rest_framework.urls')),\n    path('admin/', admin.site.urls),\n    path('home/', include('panel_sms.urls')),\n    path('chat/', include('chat.urls')),\n    # path('home/', include('home.urls')),\n    # path('products/', include('products.urls')),\n    # path('orders/', include('orders.urls')),\n]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)",
+        "peekOfCode": "urlpatterns = [\n    path('api-auth/', include('rest_framework.urls')),\n    path('home/', include('panel_sms.urls')),\n    path('chat/', include('chat.urls')),\n    # سایر URLهای عمومی\n] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\n# اضافه کردن URLهای مربوط به زبان‌ها\nurlpatterns += i18n_patterns(\n    path('admin/', admin.site.urls),\n    # سایر URLها که می‌خواهید به i18n اضافه شوند",
         "detail": "djangocha.urls",
         "documentation": {}
     },

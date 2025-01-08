@@ -1,7 +1,7 @@
 <!-- chat/templates/chat/index.html -->
 <!DOCTYPE html>
 {% load static %}
-<html>
+<html lang="{% get_current_language %}" dir="{% if LANGUAGE_CODE == 'fa' %}rtl{% else %}ltr{% endif %}">
 <head>
     <meta charset="utf-8"/>
     <title>Echo Text</title>
