@@ -48,6 +48,10 @@ INSTALLED_APPS = [
 ]
 # settings.py
 
+LOGIN_URL = '/login/'  # مسیر به صفحه لاگین
+LOGOUT_REDIRECT_URL = '/login/'  # مسیر هدایت پس از خروج
+
+
 JAZZMIN_SETTINGS = {
     # سایت و برند
     "site_title": "Library Admin",

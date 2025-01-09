@@ -624,7 +624,7 @@
         "kind": 5,
         "importPath": "chat.urls",
         "description": "chat.urls",
-        "peekOfCode": "urlpatterns = [\n    path('wsg/',index),\n    path('<str:room_name>/',RoomName, name='room'),\n    path('login',views.LoginView.as_view(template_name='page/chat/login.html'),name='login'),\n    path('logout',views.LogoutView.as_view(template_name='page/chat/logged_out.html'), name='logout')\n    ]",
+        "peekOfCode": "urlpatterns = [\n    path('wsg/',index),\n    path('login',views.LoginView.as_view(template_name='page/chat/login.html'),name='login'),\n    path('logout/', views.LogoutView.as_view(next_page='/login/'), name='logout'),\n    path('<str:room_name>/',RoomName, name='room'),\n    ]",
         "detail": "chat.urls",
         "documentation": {}
     },
@@ -697,6 +697,24 @@
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
         "peekOfCode": "INSTALLED_APPS = [\n    'jazzmin',\n    'channels',\n    'django.contrib.admin',\n    'django.contrib.auth',\n    'django.contrib.contenttypes',\n    'django.contrib.sessions',\n    'django.contrib.messages',\n    'django.contrib.staticfiles',\n    'panel_sms',",
+        "detail": "djangocha.settings",
+        "documentation": {}
+    },
+    {
+        "label": "LOGIN_URL",
+        "kind": 5,
+        "importPath": "djangocha.settings",
+        "description": "djangocha.settings",
+        "peekOfCode": "LOGIN_URL = '/login/'  # مسیر به صفحه لاگین\nLOGOUT_REDIRECT_URL = '/login/'  # مسیر هدایت پس از خروج\nJAZZMIN_SETTINGS = {\n    # سایت و برند\n    \"site_title\": \"Library Admin\",\n    \"site_header\": \"Library Management\",\n    \"site_brand\": \"Library Admin\",\n    \"site_logo\": \"books/img/logo.png\",  # مسیر لوگوی دلخواه\n    \"site_logo_classes\": \"img-circle\",\n    \"site_icon\": \"books/img/favicon.ico\",  # آیکون مرورگر",
+        "detail": "djangocha.settings",
+        "documentation": {}
+    },
+    {
+        "label": "LOGOUT_REDIRECT_URL",
+        "kind": 5,
+        "importPath": "djangocha.settings",
+        "description": "djangocha.settings",
+        "peekOfCode": "LOGOUT_REDIRECT_URL = '/login/'  # مسیر هدایت پس از خروج\nJAZZMIN_SETTINGS = {\n    # سایت و برند\n    \"site_title\": \"Library Admin\",\n    \"site_header\": \"Library Management\",\n    \"site_brand\": \"Library Admin\",\n    \"site_logo\": \"books/img/logo.png\",  # مسیر لوگوی دلخواه\n    \"site_logo_classes\": \"img-circle\",\n    \"site_icon\": \"books/img/favicon.ico\",  # آیکون مرورگر\n    \"welcome_sign\": \"Welcome to the Library Admin Panel\",",
         "detail": "djangocha.settings",
         "documentation": {}
     },
