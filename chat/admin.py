@@ -23,23 +23,3 @@ class MessageAdmin(admin.ModelAdmin):
     def short_text(self, obj):
         return obj.text[:50] + "..." if len(obj.text) > 50 else obj.text  # نمایش کوتاه شده متن پیام
     short_text.short_description = 'متن کوتاه'
-
-    # قابلیت مرتب‌سازی پیش‌فرض
-    # ordering = ("-published_date",)
-
-    # اضافه کردن فیلدهایی که تنها برای مشاهده نمایش داده می‌شوند
-    # readonly_fields = ("created_at", "updated_at")
-
-    # # تنظیمات فرم نمایش جزئیات یک آیتم
-    # fieldsets = (
-    #     ("اطلاعات عمومی", {
-    #         "fields": ("title", "author", "description", "published_date")
-    #     }),
-    #     ("اطلاعات پیشرفته", {
-    #         "classes": ("collapse",),
-    #         "fields": ("price", "is_available"),
-    #     }),
-    # )
-
-    # فیلترهای خاص
-    # date_hierarchy = "published_date"  # نمایش فیلتر تاریخ در بالای صفحه

@@ -543,7 +543,7 @@
         "kind": 6,
         "importPath": "chat.admin",
         "description": "chat.admin",
-        "peekOfCode": "class MessageAdmin(admin.ModelAdmin):\n    list_display = ('author', 'related_chat', 'time', 'short_text')  # نمایش اطلاعات پیام\n    search_fields = ('author__username', 'related_chat__roomname', 'text')  # جستجو بر اساس نویسنده، نام چت و متن پیام\n    list_filter = ('time', 'related_chat')  # فیلتر بر اساس زمان و چت مرتبط\n    list_editable = ('related_chat',)  # امکان ویرایش سریع چت مرتبط از لیست\n    def short_text(self, obj):\n        return obj.text[:50] + \"...\" if len(obj.text) > 50 else obj.text  # نمایش کوتاه شده متن پیام\n    short_text.short_description = 'متن کوتاه'\n    # قابلیت مرتب‌سازی پیش‌فرض\n    # ordering = (\"-published_date\",)",
+        "peekOfCode": "class MessageAdmin(admin.ModelAdmin):\n    list_display = ('author', 'related_chat', 'time', 'short_text')  # نمایش اطلاعات پیام\n    search_fields = ('author__username', 'related_chat__roomname', 'text')  # جستجو بر اساس نویسنده، نام چت و متن پیام\n    list_filter = ('time', 'related_chat')  # فیلتر بر اساس زمان و چت مرتبط\n    list_editable = ('related_chat',)  # امکان ویرایش سریع چت مرتبط از لیست\n    def short_text(self, obj):\n        return obj.text[:50] + \"...\" if len(obj.text) > 50 else obj.text  # نمایش کوتاه شده متن پیام\n    short_text.short_description = 'متن کوتاه'",
         "detail": "chat.admin",
         "documentation": {}
     },
