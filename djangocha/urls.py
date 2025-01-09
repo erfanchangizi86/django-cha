@@ -19,6 +19,6 @@ urlpatterns += i18n_patterns(
 )
 
 # اضافه کردن URL مربوط به set_language
-urlpatterns += [
-    path('set_language/', include('django.conf.urls.i18n')),
-]
+# urlpatterns += [
+#     path('set_language/', include('django.conf.urls.i18n')),
+# ]

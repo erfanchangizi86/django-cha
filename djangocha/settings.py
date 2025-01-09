@@ -57,8 +57,7 @@ JAZZMIN_SETTINGS = {
     "site_logo_classes": "img-circle",
     "site_icon": "books/img/favicon.ico",  # آیکون مرورگر
     "welcome_sign": "Welcome to the Library Admin Panel",
-    "copyright": "© 2025 Library Inc",
-    "language_chooser": True,  # فعال‌سازی انتخاب زبان
+    "copyright": "© 2025 Library Inc",  # فعال‌سازی انتخاب زبان
     "theme": "green",
     # منوی بالا
     "topmenu_links": [
