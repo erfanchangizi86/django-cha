@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     'panel_sms',
     'rest_framework',
     'chat',
+    'crispy_forms',
 
 
 ]
+
 # settings.py
 LOGIN_REDIRECT_URL = '/chat/wsg/'  # مسیر دلخواه شما
 

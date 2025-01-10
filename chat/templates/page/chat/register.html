@@ -1,83 +1,95 @@
 {% extends "base.html" %}
 {% block style %}
 <style>
-.register-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    direction: rtl; /* راست‌چین */
-    font-family: 'IRANSans', Arial, sans-serif;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ffffff; /* سفید برای پس‌زمینه */
 }
 
-.register-container h2 {
+.login-container {
+    background: linear-gradient(135deg, #d0eaff, #f7faff); /* گرادیان آبی بسیار کم‌رنگ */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* سایه زیبا برای فرم */
+    width: 320px;
     text-align: center;
-    margin-bottom: 20px;
-    color: #007bff;
 }
 
-.register-container form {
+.login-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #0077ff; /* رنگ آبی خوش‌رنگ */
+}
+
+.login-container form {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
-.register-container form input,
-.register-container form button {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-.register-container form input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.register-container form button {
-    color: #fff;
-    background-color: #007bff;
+.login-container button {
+    background-color: #0077ff; /* آبی اصلی */
+    color: white;
     border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.register-container form button:hover {
-    background-color: #0056b3;
+.login-container button:hover {
+    background-color: #0056b3; /* آبی تیره‌تر هنگام هاور */
+    transform: translateY(-2px); /* حرکت کوچک هنگام هاور */
 }
 
-.register-container p {
-    text-align: center;
-    margin-top: 15px;
+.login-container input[type="text"],
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    border: 1px solid #ccd8e8;
+    border-radius: 8px;
+    padding: 12px;
     font-size: 14px;
+    outline: none;
+    background-color: #f9fbfd; /* پس‌زمینه ملایم */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.register-container p a {
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.3s ease;
+.login-container input[type="text"]:focus,
+.login-container input[type="email"],
+.login-container input[type="password"]:focus {
+    border-color: #0077ff;
+    box-shadow: 0 0 5px rgba(0, 119, 255, 0.5);
 }
-
-.register-container p a:hover {
-    color: #0056b3;
-}
-</style>
+            </style>
 {% endblock style %}
 {% block body %}
-
-<div class="register-container">
+<div class="login-container">
     <h2>ثبت‌نام</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for f in form %}
+        <div style="margin-bottom: 15px;">
+            {{ f.label_tag }}
+            {{ f }}
+            {% if f.errors %}
+                <ul style="color: red; font-size: 14px; list-style: none; padding: 0; margin-top: 5px;">
+                    {% for error in f.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
         <button type="submit">ثبت‌نام</button>
-    </form>
+    </form>  
     <p>قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'login' %}">وارد شوید</a>.</p>
 </div>
+{% endblock %}
 
-{% endblock body %}

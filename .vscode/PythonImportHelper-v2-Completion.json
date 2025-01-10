@@ -188,6 +188,14 @@
         "documentation": {}
     },
     {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
         "label": "views",
         "importPath": "django",
         "description": "django",
@@ -306,6 +314,22 @@
         "description": "django.contrib.auth",
         "isExtraImport": true,
         "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
+        "label": "make_password",
+        "importPath": "django.contrib.auth.hashers",
+        "description": "django.contrib.auth.hashers",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.hashers",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "importPath": "django.contrib.auth.models",
+        "description": "django.contrib.auth.models",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.models",
         "documentation": {}
     },
     {
@@ -632,11 +656,11 @@
         "documentation": {}
     },
     {
-        "label": "userform",
+        "label": "UserForm",
         "kind": 6,
         "importPath": "chat.forms",
         "description": "chat.forms",
-        "peekOfCode": "class userform(forms.ModelForm):\n    class Meta:\n        model = user\n        fields = (\"username\", \"email\", \"password\")",
+        "peekOfCode": "class UserForm(forms.ModelForm):\n    class Meta:\n        model = User  # یا مدل سفارشی شما\n        fields = (\"username\", \"email\", \"password\")\n        # برچسب‌های فارسی\n        labels = {\n            \"username\": \"نام کاربری\",\n            \"email\": \"ایمیل\",\n            \"password\": \"رمز عبور\",\n        }",
         "detail": "chat.forms",
         "documentation": {}
     },
@@ -645,7 +669,7 @@
         "kind": 5,
         "importPath": "chat.forms",
         "description": "chat.forms",
-        "peekOfCode": "user = get_user_model()\nclass userform(forms.ModelForm):\n    class Meta:\n        model = user\n        fields = (\"username\", \"email\", \"password\")",
+        "peekOfCode": "user = get_user_model()\nfrom django.contrib.auth.hashers import make_password\nfrom django import forms\nfrom django.contrib.auth.models import User  # یا مدل سفارشی شما\nclass UserForm(forms.ModelForm):\n    class Meta:\n        model = User  # یا مدل سفارشی شما\n        fields = (\"username\", \"email\", \"password\")\n        # برچسب‌های فارسی\n        labels = {",
         "detail": "chat.forms",
         "documentation": {}
     },
@@ -708,7 +732,7 @@
         "kind": 6,
         "importPath": "chat.views",
         "description": "chat.views",
-        "peekOfCode": "class formclass(FormView):\n    form_class = userform\n    template_name = 'page/chat/register.html'\n    success_url = reverse_lazy('login')\ndef logout_view(request):\n    logout(request)\n    return redirect('login')",
+        "peekOfCode": "class formclass(FormView):\n    form_class = UserForm\n    template_name = 'page/chat/register.html'\n    success_url = reverse_lazy('login')\n    def form_valid(self, form):\n        # ذخیره کاربر\n        form.save()\n        return super().form_valid(form)\ndef logout_view(request):\n    logout(request)",
         "detail": "chat.views",
         "documentation": {}
     },

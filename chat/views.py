@@ -9,7 +9,7 @@ from .models import Chat
 # Create your views here.
 from django.contrib.auth import logout
 from django.views.generic import FormView
-from .forms import userform
+from .forms import UserForm
 
 
 
@@ -44,9 +44,13 @@ def RoomName(request:HttpRequest,room_name):
 
 
 class formclass(FormView):
-    form_class = userform
+    form_class = UserForm
     template_name = 'page/chat/register.html'
     success_url = reverse_lazy('login')
+    def form_valid(self, form):
+        # ذخیره کاربر
+        form.save()
+        return super().form_valid(form)
 
 def logout_view(request):
     logout(request)
