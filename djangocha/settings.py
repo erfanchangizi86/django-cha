@@ -215,7 +215,7 @@ LANGUAGES = [
     ('fa', ('فارسی')),  # اضافه کردن زبان فارسی
 ]
 
-LANGUAGE_CODE = 'en'  # زبان پیش‌فرض فارسی
+LANGUAGE_CODE = 'fa'  # زبان پیش‌فرض فارسی
 
 
 TIME_ZONE = 'UTC'

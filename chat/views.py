@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpRequest
+from django.urls import reverse_lazy
 import json 
 from  django.utils.safestring import  mark_safe
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,10 @@ from chat.consumers import user
 from .models import Chat
 # Create your views here.
 from django.contrib.auth import logout
+from django.views.generic import FormView
+from .forms import userform
+
+
 
 @login_required(login_url='login')
 def index(request):
@@ -38,7 +43,10 @@ def RoomName(request:HttpRequest,room_name):
     return render(request,'page/chat/room.html',context)
 
 
-
+class formclass(FormView):
+    form_class = userform
+    template_name = 'page/chat/register.html'
+    success_url = reverse_lazy('login')
 
 def logout_view(request):
     logout(request)

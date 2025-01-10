@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block style %}
 <style>
     body {
@@ -11,7 +11,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-start; /* تغییر برای نمایش محتوا از بالا */
+        justify-content: flex-start;
         height: 100vh;
     }
 
@@ -19,7 +19,7 @@
         width: 100%;
         padding: 10px 20px;
         display: flex;
-        justify-content: flex-end; /* دکمه‌ها در سمت راست */
+        justify-content: flex-end;
         align-items: center;
         background-color: #007bff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -84,45 +84,52 @@
 
     .room-links {
         margin-top: 20px;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .room-links a {
-        display: block;
-        margin: 10px 0;
-        color: #007bff;
+    .room-item {
+        display: flex;
+        align-items: center;
+        margin: 15px 0;
+        width: 100%;
+        max-width: 400px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, background-color 0.3s ease;
         text-decoration: none;
+        color: #333;
+    }
+
+    .room-item:hover {
+        transform: translateY(-5px);
+        background-color: #f0f8ff;
+    }
+
+    .room-item img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        border: 2px solid #007bff;
+    }
+
+    .room-item span {
         font-size: 18px;
         font-weight: bold;
-        transition: color 0.3s ease;
-        position: relative;
-    }
-
-    .room-links a:hover {
-        color: #0056b3;
-    }
-
-    .badge {
-        position: absolute;
-        top: -10px;
-        right: -10px;
-        padding: 5px 10px;
-        border-radius: 50%;
-        background: red;
-        color: white;
-        font-size: 12px;
     }
 </style>
 {% endblock style %}
 
 {% block body %}
-<!-- بخش بالای صفحه -->
 <div class="header">
     <a href="{% url 'login' %}" id="login-btn">Login</a>
     <a href="{% url 'logout' %}" id="logout-btn">Logout</a>
 </div>
 
-<!-- محتوای اصلی -->
 <h1>Welcome to the Chat App</h1>
 <p>What chat room would you like to enter?</p>
 <input id="room-name-input" type="text" size="100" placeholder="Enter room name"><br>
@@ -130,8 +137,9 @@
 
 <div class="room-links">
     {% for i in group %}
-        <a href='{% url "room" room_name=i.roomname %}'>
-            {{ i.roomname }}
+        <a href='{% url "room" room_name=i.roomname %}' class="room-item">
+            <img src="{% static "images.jpeg" %}" alt="Room Image">
+            <span>{{ i.roomname }}</span>
         </a>
     {% empty %}
         <p>No rooms available. Create one to start chatting!</p>

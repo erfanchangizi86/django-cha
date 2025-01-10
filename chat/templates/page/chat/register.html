@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    direction: rtl; /* راست‌چین */
+    font-family: 'IRANSans', Arial, sans-serif;
+}
+
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff;
+}
+
+.register-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container form input,
+.register-container form button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.register-container form input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.register-container form button {
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-container form button:hover {
+    background-color: #0056b3;
+}
+
+.register-container p {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.register-container p a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.register-container p a:hover {
+    color: #0056b3;
+}
+</style>
+{% endblock style %}
+{% block body %}
+
+<div class="register-container">
+    <h2>ثبت‌نام</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">ثبت‌نام</button>
+    </form>
+    <p>قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'login' %}">وارد شوید</a>.</p>
+</div>
+
+{% endblock body %}

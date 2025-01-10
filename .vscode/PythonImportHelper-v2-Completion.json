@@ -33,6 +33,15 @@
         "documentation": {}
     },
     {
+        "label": "django.db",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "django.db",
+        "description": "django.db",
+        "detail": "django.db",
+        "documentation": {}
+    },
+    {
         "label": "migrations",
         "importPath": "django.db",
         "description": "django.db",
@@ -171,6 +180,14 @@
         "documentation": {}
     },
     {
+        "label": "forms",
+        "importPath": "django",
+        "description": "django",
+        "isExtraImport": true,
+        "detail": "django",
+        "documentation": {}
+    },
+    {
         "label": "views",
         "importPath": "django",
         "description": "django",
@@ -268,6 +285,14 @@
         "documentation": {}
     },
     {
+        "label": "get_user_model",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
         "label": "views",
         "importPath": "django.contrib.auth",
         "description": "django.contrib.auth",
@@ -293,6 +318,14 @@
     },
     {
         "label": "path",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
+        "label": "reverse_lazy",
         "importPath": "django.urls",
         "description": "django.urls",
         "isExtraImport": true,
@@ -425,6 +458,14 @@
         "description": "chat.consumers",
         "isExtraImport": true,
         "detail": "chat.consumers",
+        "documentation": {}
+    },
+    {
+        "label": "FormView",
+        "importPath": "django.views.generic",
+        "description": "django.views.generic",
+        "isExtraImport": true,
+        "detail": "django.views.generic",
         "documentation": {}
     },
     {
@@ -591,6 +632,24 @@
         "documentation": {}
     },
     {
+        "label": "userform",
+        "kind": 6,
+        "importPath": "chat.forms",
+        "description": "chat.forms",
+        "peekOfCode": "class userform(forms.ModelForm):\n    class Meta:\n        model = user\n        fields = (\"username\", \"email\", \"password\")",
+        "detail": "chat.forms",
+        "documentation": {}
+    },
+    {
+        "label": "user",
+        "kind": 5,
+        "importPath": "chat.forms",
+        "description": "chat.forms",
+        "peekOfCode": "user = get_user_model()\nclass userform(forms.ModelForm):\n    class Meta:\n        model = user\n        fields = (\"username\", \"email\", \"password\")",
+        "detail": "chat.forms",
+        "documentation": {}
+    },
+    {
         "label": "Chat",
         "kind": 6,
         "importPath": "chat.models",
@@ -640,8 +699,17 @@
         "kind": 5,
         "importPath": "chat.urls",
         "description": "chat.urls",
-        "peekOfCode": "urlpatterns = [\n    path('wsg/',index),\n    path('<str:room_name>/',RoomName, name='room'),\n    path('login',views.LoginView.as_view(template_name='page/chat/login.html',),name='login'),\n    path('logout', logout_view, name='logout'),\n    ]",
+        "peekOfCode": "urlpatterns = [\n    path('wsg/',index),\n    path('<str:room_name>/',RoomName, name='room'),\n    path('login',views.LoginView.as_view(template_name='page/chat/login.html',),name='login'),\n    path('logout', logout_view, name='logout'),\n    path('register', formclass.as_view(), name='register'),\n    ]",
         "detail": "chat.urls",
+        "documentation": {}
+    },
+    {
+        "label": "formclass",
+        "kind": 6,
+        "importPath": "chat.views",
+        "description": "chat.views",
+        "peekOfCode": "class formclass(FormView):\n    form_class = userform\n    template_name = 'page/chat/register.html'\n    success_url = reverse_lazy('login')\ndef logout_view(request):\n    logout(request)\n    return redirect('login')",
+        "detail": "chat.views",
         "documentation": {}
     },
     {
@@ -811,7 +879,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "LANGUAGES = [\n    ('en', ('English')),\n    ('fa', ('فارسی')),  # اضافه کردن زبان فارسی\n]\nLANGUAGE_CODE = 'en'  # زبان پیش‌فرض فارسی\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/",
+        "peekOfCode": "LANGUAGES = [\n    ('en', ('English')),\n    ('fa', ('فارسی')),  # اضافه کردن زبان فارسی\n]\nLANGUAGE_CODE = 'fa'  # زبان پیش‌فرض فارسی\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/",
         "detail": "djangocha.settings",
         "documentation": {}
     },
@@ -820,7 +888,7 @@
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "LANGUAGE_CODE = 'en'  # زبان پیش‌فرض فارسی\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# STATICFILES_DIRS = [\n#     os.path.join(BASE_DIR, \"static\"),\n# ]",
+        "peekOfCode": "LANGUAGE_CODE = 'fa'  # زبان پیش‌فرض فارسی\nTIME_ZONE = 'UTC'\nUSE_I18N = True\nUSE_TZ = True\n# Static files (CSS, JavaScript, Images)\n# https://docs.djangoproject.com/en/5.1/howto/static-files/\nSTATIC_URL = 'static/'\n# STATICFILES_DIRS = [\n#     os.path.join(BASE_DIR, \"static\"),\n# ]",
         "detail": "djangocha.settings",
         "documentation": {}
     },
