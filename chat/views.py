@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpRequest
 import json 
 from  django.utils.safestring import  mark_safe
@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from chat.consumers import user
 from .models import Chat
 # Create your views here.
+from django.contrib.auth import logout
 
 @login_required(login_url='login')
 def index(request):
@@ -35,5 +36,13 @@ def RoomName(request:HttpRequest,room_name):
         'user_name': mark_safe(json.dumps(user_name))
     }
     return render(request,'page/chat/room.html',context)
+
+
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
 
 

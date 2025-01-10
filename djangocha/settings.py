@@ -47,10 +47,9 @@ INSTALLED_APPS = [
 
 ]
 # settings.py
+LOGIN_REDIRECT_URL = '/chat/wsg/'  # مسیر دلخواه شما
 
-LOGIN_URL = '/login/'  # مسیر به صفحه لاگین
-LOGOUT_REDIRECT_URL = '/login/'  # مسیر هدایت پس از خروج
-
+# LOGIN_URL = '/login'  
 
 JAZZMIN_SETTINGS = {
     # سایت و برند

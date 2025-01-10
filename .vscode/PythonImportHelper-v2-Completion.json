@@ -276,6 +276,14 @@
         "documentation": {}
     },
     {
+        "label": "logout",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
         "label": "re_path",
         "importPath": "django.urls",
         "description": "django.urls",
@@ -365,6 +373,14 @@
     },
     {
         "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
         "isExtraImport": true,
@@ -624,7 +640,7 @@
         "kind": 5,
         "importPath": "chat.urls",
         "description": "chat.urls",
-        "peekOfCode": "urlpatterns = [\n    path('wsg/',index),\n    path('login',views.LoginView.as_view(template_name='page/chat/login.html'),name='login'),\n    path('logout/', views.LogoutView.as_view(next_page='/login/'), name='logout'),\n    path('<str:room_name>/',RoomName, name='room'),\n    ]",
+        "peekOfCode": "urlpatterns = [\n    path('wsg/',index),\n    path('<str:room_name>/',RoomName, name='room'),\n    path('login',views.LoginView.as_view(template_name='page/chat/login.html',),name='login'),\n    path('logout', logout_view, name='logout'),\n    ]",
         "detail": "chat.urls",
         "documentation": {}
     },
@@ -643,6 +659,15 @@
         "importPath": "chat.views",
         "description": "chat.views",
         "peekOfCode": "def RoomName(request:HttpRequest,room_name):\n    user = request.user\n    try:\n        # تلاش برای پیدا کردن اتاق چت\n        chat_room = Chat.objects.get(roomname=room_name)\n    except Chat.DoesNotExist:\n        # اگر اتاق پیدا نشد، ایجاد آن\n        chat_room = Chat.objects.create(roomname=room_name)\n    # اضافه کردن کاربر به اعضای اتاق\n    chat_room.members.add(user)",
+        "detail": "chat.views",
+        "documentation": {}
+    },
+    {
+        "label": "logout_view",
+        "kind": 2,
+        "importPath": "chat.views",
+        "description": "chat.views",
+        "peekOfCode": "def logout_view(request):\n    logout(request)\n    return redirect('login')",
         "detail": "chat.views",
         "documentation": {}
     },
@@ -701,20 +726,11 @@
         "documentation": {}
     },
     {
-        "label": "LOGIN_URL",
+        "label": "LOGIN_REDIRECT_URL",
         "kind": 5,
         "importPath": "djangocha.settings",
         "description": "djangocha.settings",
-        "peekOfCode": "LOGIN_URL = '/login/'  # مسیر به صفحه لاگین\nLOGOUT_REDIRECT_URL = '/login/'  # مسیر هدایت پس از خروج\nJAZZMIN_SETTINGS = {\n    # سایت و برند\n    \"site_title\": \"Library Admin\",\n    \"site_header\": \"Library Management\",\n    \"site_brand\": \"Library Admin\",\n    \"site_logo\": \"books/img/logo.png\",  # مسیر لوگوی دلخواه\n    \"site_logo_classes\": \"img-circle\",\n    \"site_icon\": \"books/img/favicon.ico\",  # آیکون مرورگر",
-        "detail": "djangocha.settings",
-        "documentation": {}
-    },
-    {
-        "label": "LOGOUT_REDIRECT_URL",
-        "kind": 5,
-        "importPath": "djangocha.settings",
-        "description": "djangocha.settings",
-        "peekOfCode": "LOGOUT_REDIRECT_URL = '/login/'  # مسیر هدایت پس از خروج\nJAZZMIN_SETTINGS = {\n    # سایت و برند\n    \"site_title\": \"Library Admin\",\n    \"site_header\": \"Library Management\",\n    \"site_brand\": \"Library Admin\",\n    \"site_logo\": \"books/img/logo.png\",  # مسیر لوگوی دلخواه\n    \"site_logo_classes\": \"img-circle\",\n    \"site_icon\": \"books/img/favicon.ico\",  # آیکون مرورگر\n    \"welcome_sign\": \"Welcome to the Library Admin Panel\",",
+        "peekOfCode": "LOGIN_REDIRECT_URL = '/chat/wsg/'  # مسیر دلخواه شما\n# LOGIN_URL = '/login'  \nJAZZMIN_SETTINGS = {\n    # سایت و برند\n    \"site_title\": \"Library Admin\",\n    \"site_header\": \"Library Management\",\n    \"site_brand\": \"Library Admin\",\n    \"site_logo\": \"books/img/logo.png\",  # مسیر لوگوی دلخواه\n    \"site_logo_classes\": \"img-circle\",\n    \"site_icon\": \"books/img/favicon.ico\",  # آیکون مرورگر",
         "detail": "djangocha.settings",
         "documentation": {}
     },
