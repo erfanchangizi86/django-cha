@@ -6,6 +6,7 @@ user = get_user_model()
 class Chat(models.Model):
     roomname = models.CharField(blank=True,max_length=200)
     members = models.ManyToManyField(user,null=True,blank=True)
+    allowed_users = models.ManyToManyField(user, related_name='allowed_chats', blank=True)
 
     def __str__(self):
         return  self.roomname

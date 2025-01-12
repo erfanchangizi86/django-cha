@@ -6,7 +6,7 @@ from django.contrib.auth import views
 
 
 urlpatterns = [
-    path('wsg/',index),
+    path('wsg/',index.as_view(),name='index'),
     path('<str:room_name>/',RoomName, name='room'),
     path('login',views.LoginView.as_view(template_name='page/chat/login.html',),name='login'),
     path('logout', logout_view, name='logout'),
