@@ -19,7 +19,7 @@
         width: 100%;
         padding: 10px 20px;
         display: flex;
-        justify-content: space-between; /* Adjusted to place search form */
+        justify-content: space-between;
         align-items: center;
         background-color: #007bff;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -121,7 +121,6 @@
         font-size: 18px;
         font-weight: bold;
     }
-
     /* Search form styles */
     .search-form {
         display: flex;
@@ -151,6 +150,52 @@
     .search-btn:hover {
         background-color: #0056b3;
     }
+
+
+    /* Search result container */
+    .search-result {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #f9f9f9;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px 15px;
+        margin: 15px 0;
+        max-width: 400px;
+        width: 100%;
+        font-size: 14px;
+        color: #333;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-result span {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .clear-btn {
+        background-color: #f44336;
+        border: none;
+        color: white;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .clear-btn:hover {
+        background-color: #d32f2f;
+        transform: scale(1.1);
+    }
+
+    .clear-btn i {
+        font-size: 16px;
+    }
 </style>
 {% endblock style %}
 
@@ -173,6 +218,16 @@
 <input id="room-name-input" type="text" size="100" placeholder="Enter room name"><br>
 <input id="room-name-submit" type="button" value="Enter">
 
+<!-- Display search result -->
+{% if search %}
+<div class="search-result">
+    <span>Results for: "{{ search }}"</span>
+    <button class="clear-btn" onclick="clearSearch()">
+        <i class="fa fa-times"></i>
+    </button>
+</div>
+{% endif %}
+
 <div class="room-links">
     {% for i in group %}
         <a href='{% url "room" room_name=i.roomname %}' class="room-item">
@@ -185,13 +240,17 @@
 </div>
 
 <script>
+    // Focus input field on page load
     document.querySelector('#room-name-input').focus();
+
+    // Handle Enter key for room input
     document.querySelector('#room-name-input').onkeyup = function(e) {
         if (e.key === 'Enter') {
             document.querySelector('#room-name-submit').click();
         }
     };
 
+    // Handle room submission
     document.querySelector('#room-name-submit').onclick = function(e) {
         var roomName = document.querySelector('#room-name-input').value.trim();
         if (roomName) {
@@ -200,5 +259,10 @@
             alert('Please enter a room name.');
         }
     };
+
+    // Clear search result
+    function clearSearch() {
+        window.location.href = window.location.pathname; // Reload the page without search query
+    }
 </script>
 {% endblock body %}

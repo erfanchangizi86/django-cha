@@ -33,6 +33,10 @@ class index(LoginRequiredMixin, ListView):
             print(search)
             queryset=queryset.filter(members=user,roomname__icontains=search)
         return queryset
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['search'] = self.request.GET.get('search')
+        return context
 
 @login_required(login_url='login')
 def RoomName(request:HttpRequest,room_name):
@@ -48,7 +52,7 @@ def RoomName(request:HttpRequest,room_name):
     if user in chat_room.allowed_users.all():
         chat_room.members.add(user)
     else:
-        return HttpResponseForbidden("<h1>شما مجوز پیوستن به این اتاق گفتگو را ندارید.</h1>")
+        return HttpResponseForbidden("<center><h1 style='background-color: #00f3ff;width: 50%;text-align: center;border-radius: 5px;'>شما مجوز پیوستن به این اتاق گفتگو را ندارید.</h1></center>")
         
 
 # اگر دسترسی وجود دارد، اضافه کردن کاربر به اعضای اتاق
