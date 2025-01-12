@@ -9,6 +9,13 @@ from django import forms
 from django.contrib.auth.models import User  # یا مدل سفارشی شما
 
 class UserForm(forms.ModelForm):
+    password_confirm = forms.CharField(
+        label="تکرار رمز عبور",
+        widget=forms.PasswordInput(),
+        error_messages={
+            "required": "وارد کردن تکرار رمز عبور الزامی است.",
+        },
+    )
     class Meta:
         model = User  # یا مدل سفارشی شما
         fields = ("username", "email", "password")
@@ -19,6 +26,7 @@ class UserForm(forms.ModelForm):
             "email": "ایمیل",
             "password": "رمز عبور",
         }
+
         
         # پیام‌های خطای فارسی
         error_messages = {
@@ -43,6 +51,29 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["password"].widget = forms.PasswordInput()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirm = cleaned_data.get("password_confirm")
+
+        # بررسی تطابق رمز عبور و تکرار آن
+        if password != password_confirm:
+            self.add_error("password_confirm", "رمز عبور و تکرار آن مطابقت ندارند.")
+        
+        return cleaned_data
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirm = cleaned_data.get("password_confirm")
+
+        # بررسی تطابق رمز عبور و تکرار آن
+        if password and password_confirm and password != password_confirm:
+            raise forms.ValidationError("رمز عبور و تکرار آن مطابقت ندارند.")
+        
+        return cleaned_data
+
 
     def save(self, commit=True):
         user = super().save(commit=False)

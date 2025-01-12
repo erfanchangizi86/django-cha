@@ -660,7 +660,7 @@
         "kind": 6,
         "importPath": "chat.forms",
         "description": "chat.forms",
-        "peekOfCode": "class UserForm(forms.ModelForm):\n    class Meta:\n        model = User  # یا مدل سفارشی شما\n        fields = (\"username\", \"email\", \"password\")\n        # برچسب‌های فارسی\n        labels = {\n            \"username\": \"نام کاربری\",\n            \"email\": \"ایمیل\",\n            \"password\": \"رمز عبور\",\n        }",
+        "peekOfCode": "class UserForm(forms.ModelForm):\n    password_confirm = forms.CharField(\n        label=\"تکرار رمز عبور\",\n        widget=forms.PasswordInput(),\n        error_messages={\n            \"required\": \"وارد کردن تکرار رمز عبور الزامی است.\",\n        },\n    )\n    class Meta:\n        model = User  # یا مدل سفارشی شما",
         "detail": "chat.forms",
         "documentation": {}
     },
@@ -669,7 +669,7 @@
         "kind": 5,
         "importPath": "chat.forms",
         "description": "chat.forms",
-        "peekOfCode": "user = get_user_model()\nfrom django.contrib.auth.hashers import make_password\nfrom django import forms\nfrom django.contrib.auth.models import User  # یا مدل سفارشی شما\nclass UserForm(forms.ModelForm):\n    class Meta:\n        model = User  # یا مدل سفارشی شما\n        fields = (\"username\", \"email\", \"password\")\n        # برچسب‌های فارسی\n        labels = {",
+        "peekOfCode": "user = get_user_model()\nfrom django.contrib.auth.hashers import make_password\nfrom django import forms\nfrom django.contrib.auth.models import User  # یا مدل سفارشی شما\nclass UserForm(forms.ModelForm):\n    password_confirm = forms.CharField(\n        label=\"تکرار رمز عبور\",\n        widget=forms.PasswordInput(),\n        error_messages={\n            \"required\": \"وارد کردن تکرار رمز عبور الزامی است.\",",
         "detail": "chat.forms",
         "documentation": {}
     },
