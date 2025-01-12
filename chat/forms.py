@@ -52,16 +52,14 @@ class UserForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields["password"].widget = forms.PasswordInput()
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        password_confirm = cleaned_data.get("password_confirm")
+    def clean_password_confirm(self):
+        password = self.cleaned_data['password']
+        password_confirm = self.cleaned_data.get("password_confirm")
 
         # بررسی تطابق رمز عبور و تکرار آن
         if password != password_confirm:
-            self.add_error("password_confirm", "رمز عبور و تکرار آن مطابقت ندارند.")
-        
-        return cleaned_data
+            raise forms.ValidationError("رمز عبور و تکرار آن مطابقت ندارند.")        
+        return  password_confirm
 
     def clean(self):
         cleaned_data = super().clean()
