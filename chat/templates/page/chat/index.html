@@ -196,6 +196,49 @@
     .clear-btn i {
         font-size: 16px;
     }
+    /* حالت تیره */
+    body.dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    .header.dark-mode {
+        background-color: #333;
+    }
+
+    .search-input.dark-mode {
+        background-color: #1e1e1e;
+        color: #fff;
+        border-color: #444;
+    }
+
+    .search-btn.dark-mode {
+        background-color: #444;
+        color: #fff;
+    }
+
+    h1.dark-mode {
+        color: #80d0ff;
+    }
+
+    #room-name-input.dark-mode {
+        background-color: #1e1e1e;
+        color: #fff;
+        border-color: #444;
+    }
+
+    #room-name-submit.dark-mode {
+        background-color: #0056b3;
+    }
+
+    .room-item.dark-mode {
+        background-color: #1e1e1e;
+        color: #fff;
+    }
+
+    .room-item:hover.dark-mode {
+        background-color: #333;
+    }
 </style>
 {% endblock style %}
 
@@ -211,6 +254,7 @@
         <input type="text" name="search" class="search-input" placeholder="Search room...">
         <button type="submit" class="search-btn">Search</button>
     </form>
+    <button id="dark-mode-toggle" class="search-btn">Toggle Theme</button>
 </div>
 
 <h1>Welcome to the Chat App</h1>
@@ -264,5 +308,14 @@
     function clearSearch() {
         window.location.href = window.location.pathname; // Reload the page without search query
     }
+    const toggleDarkMode = () => {
+        document.body.classList.toggle('dark-mode');
+        document.querySelector('.header').classList.toggle('dark-mode');
+        document.querySelectorAll('.search-input, .search-btn, #room-name-input, #room-name-submit, .room-item').forEach(el => {
+            el.classList.toggle('dark-mode');
+        });
+    };
+
+    document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
 </script>
 {% endblock body %}
