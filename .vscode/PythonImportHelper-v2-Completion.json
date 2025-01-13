@@ -341,6 +341,14 @@
         "documentation": {}
     },
     {
+        "label": "login",
+        "importPath": "django.contrib.auth",
+        "description": "django.contrib.auth",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth",
+        "documentation": {}
+    },
+    {
         "label": "make_password",
         "importPath": "django.contrib.auth.hashers",
         "description": "django.contrib.auth.hashers",
@@ -413,6 +421,14 @@
         "documentation": {}
     },
     {
+        "label": "reverse_lazy",
+        "importPath": "django.urls",
+        "description": "django.urls",
+        "isExtraImport": true,
+        "detail": "django.urls",
+        "documentation": {}
+    },
+    {
         "label": "consumers",
         "importPath": "chat",
         "description": "chat",
@@ -470,6 +486,22 @@
     },
     {
         "label": "render",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
+        "importPath": "django.shortcuts",
+        "description": "django.shortcuts",
+        "isExtraImport": true,
+        "detail": "django.shortcuts",
+        "documentation": {}
+    },
+    {
+        "label": "redirect",
         "importPath": "django.shortcuts",
         "description": "django.shortcuts",
         "isExtraImport": true,
@@ -627,6 +659,30 @@
         "description": "django.core.wsgi",
         "isExtraImport": true,
         "detail": "django.core.wsgi",
+        "documentation": {}
+    },
+    {
+        "label": "LoginView",
+        "importPath": "django.contrib.auth.views",
+        "description": "django.contrib.auth.views",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.views",
+        "documentation": {}
+    },
+    {
+        "label": "AuthenticationForm",
+        "importPath": "django.contrib.auth.forms",
+        "description": "django.contrib.auth.forms",
+        "isExtraImport": true,
+        "detail": "django.contrib.auth.forms",
+        "documentation": {}
+    },
+    {
+        "label": "FormView",
+        "importPath": "django.views.generic.edit",
+        "description": "django.views.generic.edit",
+        "isExtraImport": true,
+        "detail": "django.views.generic.edit",
         "documentation": {}
     },
     {
@@ -1102,7 +1158,25 @@
         "kind": 6,
         "importPath": "panel_sms.views",
         "description": "panel_sms.views",
-        "peekOfCode": "class HomeView(views.View):\n    def get(self, request):\n        products = [{'product':'mobile','price':30},{'product':'laptap','price':3320},{'product':'tablet','price':3000},{'product':'test','price':120}]\n        return render(request, 'home.html',context={'products':products})",
+        "peekOfCode": "class HomeView(views.View):\n    def get(self, request):\n        products = [{'product':'mobile','price':30},{'product':'laptap','price':3320},{'product':'tablet','price':3000},{'product':'test','price':120}]\n        return render(request, 'home.html',context={'products':products})\nclass LoginViewsli(LoginView):\n    template_name =  'test'\n    redirect_authenticated_user = True         # اگر کاربر قبلاً وارد شده باشد، او را به صفحه اصلی یا صفحه مشخص‌شده هدایت می‌کند\n    def get(self, request, *args, **kwargs):\n        return self.render_to_response(self.get_context_data())\n    def post(self, request, *args, **kwargs):",
+        "detail": "panel_sms.views",
+        "documentation": {}
+    },
+    {
+        "label": "LoginViewsli",
+        "kind": 6,
+        "importPath": "panel_sms.views",
+        "description": "panel_sms.views",
+        "peekOfCode": "class LoginViewsli(LoginView):\n    template_name =  'test'\n    redirect_authenticated_user = True         # اگر کاربر قبلاً وارد شده باشد، او را به صفحه اصلی یا صفحه مشخص‌شده هدایت می‌کند\n    def get(self, request, *args, **kwargs):\n        return self.render_to_response(self.get_context_data())\n    def post(self, request, *args, **kwargs):\n        form = self.get_form()\n        if form.is_valid():\n            return self.form_valid(form)\n        else:",
+        "detail": "panel_sms.views",
+        "documentation": {}
+    },
+    {
+        "label": "CustomLoginView",
+        "kind": 6,
+        "importPath": "panel_sms.views",
+        "description": "panel_sms.views",
+        "peekOfCode": "class CustomLoginView(FormView):\n    template_name = 'registration/login.html'  # قالب فرم لاگین\n    form_class = AuthenticationForm            # فرم پیش‌فرض برای ورود\n    success_url = reverse_lazy('scheduler:apps')  # مسیر موفقیت پس از لاگین\n    def form_valid(self, form):\n        # ورود کاربر پس از اعتبارسنجی فرم\n        user = form.get_user()\n        login(self.request, user)\n        return super().form_valid(form)\n    def get(self, request, *args, **kwargs):",
         "detail": "panel_sms.views",
         "documentation": {}
     },
